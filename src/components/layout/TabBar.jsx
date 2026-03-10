@@ -84,7 +84,7 @@ export default function TabBar() {
       className="fixed bottom-0 left-0 right-0 bg-surface border-t border-white/5"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
-      <div className="flex items-stretch justify-around">
+      <div className="flex items-stretch justify-around max-w-2xl mx-auto">
         {tabs.map(({ label, path, icon }) => {
           const isActive = pathname === path
           return (

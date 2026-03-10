@@ -345,7 +345,7 @@ export default function Training() {
   const sessionNumber = session.dayNumber ?? '?'
 
   return (
-    <div className="flex flex-col pb-32">
+    <div className="flex flex-col pb-32 max-w-2xl mx-auto">
       {/* ── Header ── */}
       <div
         className="px-5 pt-6 pb-5 sticky top-0 z-10"

@@ -2,6 +2,33 @@ import { motion } from 'framer-motion'
 import { differenceInCalendarDays, parseISO } from 'date-fns'
 import { RACE_DAY, PROGRAM_START } from '../../data/trainingPlan'
 
+const MOTIVATIONAL_QUOTES = [
+  "Every rep is making you faster",
+  "Champions train when they don't feel like it",
+  "You're building something special",
+  "Trust the process — speed is coming",
+  "Today's effort = race day confidence",
+  "Your future self is cheering you on",
+  "One session closer to your best race",
+  "Speed is earned, not given",
+  "You've got this, Koko!",
+  "Show up. Work hard. Get faster.",
+  "The track is waiting for you",
+  "Every stride counts",
+  "Train like a champion today",
+  "Believe in the work you're putting in",
+  "Race day will be YOUR day",
+  "Small steps, big speed",
+  "The countdown is on — let's go!",
+  "Your legs are getting stronger every day",
+  "Focus. Train. Dominate.",
+  "You're already faster than yesterday",
+  "The finish line is calling your name",
+  "Sprint training superstar in the making",
+  "Give it everything today",
+  "Race day? You were BORN for this!",
+]
+
 const SIZE = 200
 const STROKE_WIDTH = 8
 const RADIUS = 90
@@ -20,8 +47,11 @@ export default function CountdownRing() {
 
   const targetDashoffset = CIRCUMFERENCE * (1 - progress)
 
+  // Pick a quote based on days remaining (deterministic per day)
+  const quote = MOTIVATIONAL_QUOTES[daysRemaining % MOTIVATIONAL_QUOTES.length]
+
   return (
-    <div className="flex flex-col items-center gap-2">
+    <div className="flex flex-col items-center gap-3">
       <svg
         width={SIZE}
         height={SIZE}
@@ -84,6 +114,9 @@ export default function CountdownRing() {
           {daysRemaining === 0 ? 'DAY!' : 'DAYS TO RACE DAY'}
         </text>
       </svg>
+      <p className="text-sm text-text-secondary italic text-center max-w-[240px] leading-snug">
+        &ldquo;{quote}&rdquo;
+      </p>
     </div>
   )
 }

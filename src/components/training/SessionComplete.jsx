@@ -3,6 +3,17 @@ import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
 import { TRAINING_PLAN } from '../../data/trainingPlan'
 
+const CELEBRATION_MESSAGES = [
+  "You showed up. That's what champions do.",
+  "Beast mode: ACTIVATED!",
+  "Your future self just high-fived you!",
+  "Session crushed. Rest earned.",
+  "That's how legends are made!",
+  "Kokopelli = unstoppable!",
+  "Another session in the bank!",
+  "Speed is being built right now!",
+]
+
 const RATINGS = [
   { value: 'easy', emoji: '😌', label: 'Easy' },
   { value: 'good', emoji: '💪', label: 'Good' },
@@ -57,6 +68,9 @@ function TomorrowPreview({ currentDate }) {
 export default function SessionComplete({ sessionNumber, totalSessions, currentDate, onRate, onClose }) {
   const [selectedRating, setSelectedRating] = useState(null)
   const [rated, setRated] = useState(false)
+  const [celebrationMsg] = useState(
+    () => CELEBRATION_MESSAGES[Math.floor(Math.random() * CELEBRATION_MESSAGES.length)]
+  )
 
   useEffect(() => {
     // Fire confetti burst on mount
@@ -153,7 +167,7 @@ export default function SessionComplete({ sessionNumber, totalSessions, currentD
             transition={{ delay: 0.4 }}
             className="text-text-secondary text-sm mt-2"
           >
-            You showed up. That's what champions do.
+            {celebrationMsg}
           </motion.p>
         </div>
 

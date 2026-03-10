@@ -26,7 +26,7 @@ export default function Library() {
   }, [search, activeCategory])
 
   return (
-    <div className="flex flex-col gap-5 p-4 pb-8">
+    <div className="flex flex-col gap-5 p-4 pb-8 max-w-2xl mx-auto">
       {/* Page title */}
       <h1 className="text-2xl font-bold uppercase tracking-wider text-text-primary">
         Exercise Library

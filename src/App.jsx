@@ -30,7 +30,7 @@ export default function App() {
     <ErrorBoundary>
       <AppProvider>
         <HashRouter>
-          <div className="min-h-dvh bg-bg text-text-primary font-sans pb-20">
+          <div className="min-h-dvh bg-bg text-text-primary font-sans pb-24">
             <AnimatedRoutes />
             <TabBar />
           </div>

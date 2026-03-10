@@ -222,7 +222,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-5 flex flex-col gap-6 max-w-lg mx-auto">
+    <div className="p-5 flex flex-col gap-6 max-w-2xl mx-auto">
       {/* Top bar: title + icon buttons */}
       <div className="flex items-center justify-between pt-2">
         <h1 className="text-lg font-black text-text-primary uppercase tracking-widest">
