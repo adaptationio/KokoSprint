@@ -5,7 +5,7 @@ import { TRAINING_PLAN } from '../data/trainingPlan'
 import { format } from 'date-fns'
 
 export function useTraining() {
-  const { state, dispatch, refreshData } = useAppContext()
+  const { state, refreshData } = useAppContext()
 
   // Get today's planned session from the static training plan
   const getTodaySession = useCallback(() => {

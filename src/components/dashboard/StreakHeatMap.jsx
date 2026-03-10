@@ -1,4 +1,4 @@
-import { parseISO, format, isSameDay, isAfter, isBefore, startOfDay } from 'date-fns'
+import { parseISO, format, isSameDay, isAfter, startOfDay } from 'date-fns'
 import { useTraining } from '../../hooks/useTraining'
 import { TRAINING_PLAN, PROGRAM_START, RACE_DAY } from '../../data/trainingPlan'
 
@@ -85,7 +85,6 @@ export default function StreakHeatMap() {
 
             const dateStr = format(date, 'yyyy-MM-dd')
             const isToday = isSameDay(date, today)
-            const isPast = isBefore(startOfDay(date), today)
             const isFuture = isAfter(startOfDay(date), today)
             const isCompleted = completedSet.has(dateStr)
             const sessionType = planMap[dateStr]

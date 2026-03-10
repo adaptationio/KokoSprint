@@ -85,7 +85,7 @@ function buildComparisonText(data, metricInfo) {
   return null
 }
 
-export default function ProgressChart({ metricType, data, metricInfo }) {
+export default function ProgressChart({ data, metricInfo }) {
   const comparisonText = buildComparisonText(data, metricInfo)
 
   return (
