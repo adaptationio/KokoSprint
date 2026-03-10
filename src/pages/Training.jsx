@@ -9,6 +9,7 @@ import { TOTAL_SESSIONS, RACE_DAY, RACE_DAY_CHECKLIST } from '../data/trainingPl
 import ExerciseItem from '../components/training/ExerciseItem'
 import SessionComplete from '../components/training/SessionComplete'
 import TimerModal from '../components/training/TimerModal'
+import PageTip from '../components/tips/PageTip'
 
 // Map category ids to display labels and ordering
 const SECTION_CONFIG = [
@@ -371,7 +372,7 @@ export default function Training() {
         </p>
 
         {/* Progress bar */}
-        <div className="mt-4">
+        <div className="mt-4" data-tip-anchor="tip-training">
           <ProgressBar done={checkedCount} total={totalExercises} />
         </div>
       </div>
@@ -469,6 +470,12 @@ export default function Training() {
           </button>
         )}
       </div>
+
+      {/* First-use tip */}
+      <PageTip
+        tipId="tip-training"
+        text="Check off each exercise as you go. Tap 'Video' to see how it's done!"
+      />
 
       {/* ── Timer Modal ── */}
       <AnimatePresence>

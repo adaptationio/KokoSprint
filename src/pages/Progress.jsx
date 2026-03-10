@@ -3,6 +3,7 @@ import { useProgress } from '../hooks/useProgress'
 import PBCards from '../components/progress/PBCards'
 import LogEntryForm from '../components/progress/LogEntryForm'
 import ProgressChart from '../components/progress/ProgressChart'
+import PageTip from '../components/tips/PageTip'
 
 export default function Progress() {
   const { state } = useAppContext()
@@ -41,7 +42,9 @@ export default function Progress() {
       </section>
 
       {/* Log entry form */}
-      <LogEntryForm />
+      <div data-tip-anchor="tip-progress">
+        <LogEntryForm />
+      </div>
 
       {/* Charts section */}
       <section className="flex flex-col gap-4">
@@ -73,6 +76,8 @@ export default function Progress() {
           </div>
         )}
       </section>
+
+      <PageTip tipId="tip-progress" text="Log your sprint times and jump distances here after test sessions" />
     </div>
   )
 }

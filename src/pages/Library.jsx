@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import EXERCISES from '../data/exercises'
 import ExerciseCard from '../components/library/ExerciseCard'
+import PageTip from '../components/tips/PageTip'
 
 const FILTER_CATEGORIES = [
   { label: 'ALL', value: 'all' },
@@ -35,6 +36,7 @@ export default function Library() {
       {/* Search input */}
       <input
         type="search"
+        data-tip-anchor="tip-library"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         placeholder="Search exercises..."
@@ -76,6 +78,8 @@ export default function Library() {
           No exercises found
         </p>
       )}
+
+      <PageTip tipId="tip-library" text="Browse all exercises. Search or filter by category, and tap 'Watch Video' to learn each one!" />
     </div>
   )
 }

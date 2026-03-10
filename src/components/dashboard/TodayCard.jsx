@@ -100,6 +100,7 @@ export default function TodayCard() {
       {/* CTA */}
       <Link
         to="/training"
+        data-tip-anchor="tip-dashboard"
         className={`inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-wider text-sm px-6 py-3 w-full active:scale-95 transition-all ${
           isCompleted
             ? 'bg-surface border border-neon/30 text-neon'

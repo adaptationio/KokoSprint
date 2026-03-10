@@ -8,6 +8,7 @@ import StreakHeatMap from '../components/dashboard/StreakHeatMap'
 import LatestPB from '../components/dashboard/LatestPB'
 import AchievementsDrawer from '../components/achievements/AchievementsDrawer'
 import AthleteLevel from '../components/dashboard/AthleteLevel'
+import PageTip from '../components/tips/PageTip'
 
 function LoadingSkeleton() {
   return (
@@ -267,6 +268,9 @@ export default function Dashboard() {
 
       {/* Latest PB — only renders when there's a PB */}
       <LatestPB />
+
+      {/* First-use tip */}
+      <PageTip tipId="tip-dashboard" text="Tap 'Start Session' to begin today's training!" />
 
       {/* Achievements drawer */}
       <AchievementsDrawer
