@@ -48,7 +48,9 @@ export default function AchievementsDrawer({ isOpen, onClose }) {
                   Achievements
                 </h2>
                 <p className="text-xs text-text-secondary mt-0.5">
-                  {unlockedCount} / {ACHIEVEMENTS.length} Unlocked
+                  {unlockedCount > 0
+                    ? `${unlockedCount} / ${ACHIEVEMENTS.length} Unlocked`
+                    : 'Your first badge is waiting!'}
                 </p>
               </div>
               <button

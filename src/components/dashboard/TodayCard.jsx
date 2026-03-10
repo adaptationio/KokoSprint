@@ -1,12 +1,15 @@
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
+import { useAppContext } from '../../context/AppContext'
 import { useTraining } from '../../hooks/useTraining'
 import { RACE_DAY } from '../../data/trainingPlan'
 
 export default function TodayCard() {
+  const { state } = useAppContext()
   const { getTodaySession } = useTraining()
   const session = getTodaySession()
   const today = format(new Date(), 'yyyy-MM-dd')
+  const isCompleted = state.sessions.some(s => s.session_date === today && s.completed)
 
   if (!session) {
     // After race day — show celebration
@@ -97,10 +100,13 @@ export default function TodayCard() {
       {/* CTA */}
       <Link
         to="/training"
-        className="inline-flex items-center justify-center gap-2 rounded-lg bg-neon text-bg font-bold uppercase tracking-wider text-sm px-6 py-3 w-full
-          shadow-[0_0_16px_#39FF1440] hover:shadow-[0_0_24px_#39FF1460] active:scale-95 transition-all"
+        className={`inline-flex items-center justify-center gap-2 rounded-lg font-bold uppercase tracking-wider text-sm px-6 py-3 w-full active:scale-95 transition-all ${
+          isCompleted
+            ? 'bg-surface border border-neon/30 text-neon'
+            : 'bg-neon text-bg shadow-[0_0_16px_#39FF1440] hover:shadow-[0_0_24px_#39FF1460]'
+        }`}
       >
-        Start Session
+        {isCompleted ? 'Session Done ✓' : 'Start Session'}
       </Link>
     </div>
   )
