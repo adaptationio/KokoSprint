@@ -1,8 +1,10 @@
+import { useState } from 'react'
 import { useAppContext } from '../context/AppContext'
 import CountdownRing from '../components/dashboard/CountdownRing'
 import TodayCard from '../components/dashboard/TodayCard'
 import StreakHeatMap from '../components/dashboard/StreakHeatMap'
 import LatestPB from '../components/dashboard/LatestPB'
+import AchievementsDrawer from '../components/achievements/AchievementsDrawer'
 
 function LoadingSkeleton() {
   return (
@@ -20,6 +22,7 @@ function LoadingSkeleton() {
 
 export default function Dashboard() {
   const { state } = useAppContext()
+  const [showAchievements, setShowAchievements] = useState(false)
 
   if (state.loading) {
     return <LoadingSkeleton />
@@ -33,9 +36,10 @@ export default function Dashboard() {
           KokoSprint
         </h1>
         <div className="flex items-center gap-3">
-          {/* Trophy button — achievements drawer (Task 10) */}
+          {/* Trophy button — achievements drawer */}
           <button
             aria-label="Achievements"
+            onClick={() => setShowAchievements(true)}
             className="text-text-secondary hover:text-neon transition-colors text-xl leading-none p-1"
           >
             🏆
@@ -63,6 +67,12 @@ export default function Dashboard() {
 
       {/* Latest PB — only renders when there's a PB */}
       <LatestPB />
+
+      {/* Achievements drawer */}
+      <AchievementsDrawer
+        isOpen={showAchievements}
+        onClose={() => setShowAchievements(false)}
+      />
     </div>
   )
 }
