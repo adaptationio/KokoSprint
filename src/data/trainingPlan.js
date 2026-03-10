@@ -228,6 +228,7 @@ export const TRAINING_PLAN = [
     type: 'oval',
     title: 'Endurance Sprints (Optional)',
     isTest: false,
+    optional: true,
     notes: 'OPTIONAL session — only if feeling good and recovered',
     exercises: [
       ...WARMUP_ALL,

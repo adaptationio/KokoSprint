@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
 import { useProgress } from '../../hooks/useProgress'
+import { useAchievements } from '../../hooks/useAchievements'
 
 function todayISO() {
   return new Date().toISOString().slice(0, 10)
@@ -8,6 +9,7 @@ function todayISO() {
 
 export default function LogEntryForm() {
   const { logProgress, METRIC_LABELS } = useProgress()
+  const { evaluateAchievements } = useAchievements()
   const [metric, setMetric] = useState('30m_time')
   const [value, setValue] = useState('')
   const [date, setDate] = useState(todayISO())
@@ -43,6 +45,7 @@ export default function LogEntryForm() {
       setValue('')
       setDate(todayISO())
       setSuccess(true)
+      await evaluateAchievements()
     } catch {
       setError('Failed to log result. Please try again.')
     } finally {

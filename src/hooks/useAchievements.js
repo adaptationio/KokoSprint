@@ -32,9 +32,9 @@ export function useAchievements() {
       await unlock('week_1_done')
     }
 
-    // Full Week — any week where all training days are completed
+    // Full Week — any week where all required (non-optional) training days are completed
     for (const week of [1, 2, 3]) {
-      const weekDays = TRAINING_PLAN.filter(d => d.weekNumber === week && d.type !== 'rest' && d.type !== 'taper' && d.type !== 'race')
+      const weekDays = TRAINING_PLAN.filter(d => d.weekNumber === week && d.type !== 'rest' && d.type !== 'taper' && d.type !== 'race' && !d.optional)
       if (weekDays.length > 0 && weekDays.every(d => completedDates.includes(d.date))) {
         await unlock('full_week')
         break
@@ -69,8 +69,8 @@ export function useAchievements() {
       await unlock('race_ready')
     }
 
-    // All In — every training session completed
-    const allTrainingDays = TRAINING_PLAN.filter(d => d.type !== 'rest' && d.type !== 'taper' && d.type !== 'race')
+    // All In — every required training session completed
+    const allTrainingDays = TRAINING_PLAN.filter(d => d.type !== 'rest' && d.type !== 'taper' && d.type !== 'race' && !d.optional)
     if (allTrainingDays.length > 0 && allTrainingDays.every(d => completedDates.includes(d.date))) {
       await unlock('all_in')
     }
