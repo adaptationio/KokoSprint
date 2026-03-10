@@ -8,6 +8,7 @@ import { EXERCISES_BY_ID, COACHING_CUES } from '../data/exercises'
 import { TOTAL_SESSIONS, RACE_DAY, RACE_DAY_CHECKLIST } from '../data/trainingPlan'
 import ExerciseItem from '../components/training/ExerciseItem'
 import SessionComplete from '../components/training/SessionComplete'
+import TimerModal from '../components/training/TimerModal'
 
 // Map category ids to display labels and ordering
 const SECTION_CONFIG = [
@@ -243,6 +244,7 @@ export default function Training() {
   const [noteText, setNoteText] = useState('')
   const [showComplete, setShowComplete] = useState(false)
   const [completionHandled, setCompletionHandled] = useState(false)
+  const [timerExercise, setTimerExercise] = useState(null)
 
   // Pick a random coaching cue once per mount
   const coachingCue = useRef(pickRandomCue())
@@ -395,6 +397,7 @@ export default function Training() {
                       checked={!!checkedMap[item.exerciseId]}
                       onToggle={() => handleToggle(item.exerciseId)}
                       overrideSetsReps={item.setsReps}
+                      onTimer={(exercise) => setTimerExercise(exercise)}
                     />
                   )
                 })}
@@ -466,6 +469,18 @@ export default function Training() {
           </button>
         )}
       </div>
+
+      {/* ── Timer Modal ── */}
+      <AnimatePresence>
+        {timerExercise && (
+          <TimerModal
+            mode={timerExercise.timerType}
+            durationSec={timerExercise.timerDuration}
+            exerciseName={timerExercise.name}
+            onClose={() => setTimerExercise(null)}
+          />
+        )}
+      </AnimatePresence>
 
       {/* ── Session Complete overlay ── */}
       <AnimatePresence>

@@ -7,6 +7,7 @@ import TodayCard from '../components/dashboard/TodayCard'
 import StreakHeatMap from '../components/dashboard/StreakHeatMap'
 import LatestPB from '../components/dashboard/LatestPB'
 import AchievementsDrawer from '../components/achievements/AchievementsDrawer'
+import AthleteLevel from '../components/dashboard/AthleteLevel'
 
 function LoadingSkeleton() {
   return (
@@ -249,6 +250,9 @@ export default function Dashboard() {
           </button>
         </div>
       </div>
+
+      {/* Athlete level */}
+      <AthleteLevel />
 
       {/* Countdown ring — centred */}
       <div className="flex justify-center">

@@ -2,9 +2,30 @@ import { useProgress } from '../../hooks/useProgress'
 
 const METRIC_ORDER = ['30m_time', '60m_time', 'broad_jump', 'plank_hold']
 
+function getImprovement(logs, metric, metricInfo) {
+  const entries = logs
+    .filter(l => l.metric_type === metric)
+    .sort((a, b) => a.log_date.localeCompare(b.log_date))
+  if (entries.length < 2) return null
+  const first = entries[0].value
+  const last = metricInfo.lowerIsBetter
+    ? Math.min(...entries.map(e => e.value))
+    : Math.max(...entries.map(e => e.value))
+  if (first === 0) return null
+  const pct = metricInfo.lowerIsBetter
+    ? ((first - last) / first) * 100
+    : ((last - first) / first) * 100
+  return pct > 0 ? pct : null
+}
+
 export default function PBCards() {
-  const { getPersonalBests, METRIC_LABELS } = useProgress()
+  const { getPersonalBests, getProgressByMetric, METRIC_LABELS } = useProgress()
   const pbs = getPersonalBests()
+  // Get all logs for improvement calc
+  const allLogs = METRIC_ORDER.reduce((acc, m) => {
+    acc.push(...getProgressByMetric(m))
+    return acc
+  }, [])
 
   return (
     <div className="relative">
@@ -30,7 +51,15 @@ export default function PBCards() {
                     {info.unit}
                   </span>
                 </p>
-                <p className="text-xs text-text-secondary mt-2">
+                {(() => {
+                  const imp = getImprovement(allLogs, metric, info)
+                  return imp ? (
+                    <p className="text-xs font-bold text-neon mt-1">
+                      {imp.toFixed(1)}% {info.lowerIsBetter ? 'faster' : 'better'}
+                    </p>
+                  ) : null
+                })()}
+                <p className="text-xs text-text-secondary mt-1">
                   {new Date(pb.log_date).toLocaleDateString('en-AU', {
                     day: 'numeric',
                     month: 'short',

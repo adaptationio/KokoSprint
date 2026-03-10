@@ -2,6 +2,19 @@ import { motion } from 'framer-motion'
 import { differenceInCalendarDays, parseISO } from 'date-fns'
 import { RACE_DAY, PROGRAM_START } from '../../data/trainingPlan'
 
+// Special milestone messages for key countdown numbers
+const MILESTONES = {
+  21: { text: '3 weeks to go — the journey begins!', color: '#00D4FF' },
+  14: { text: '2 weeks! Your speed is building.', color: '#00D4FF' },
+  10: { text: 'Single digits coming! Keep pushing.', color: '#FFB800' },
+  7: { text: '1 WEEK! You can taste it.', color: '#FFB800' },
+  5: { text: '5 days — taper time. Rest = power.', color: '#D946EF' },
+  3: { text: '3 days! Your body is READY.', color: '#FF6B35' },
+  2: { text: 'Almost there. Stay loose, stay sharp.', color: '#FF6B35' },
+  1: { text: 'TOMORROW! Early bed, big dreams.', color: '#FF4444' },
+  0: { text: "IT'S RACE DAY! GO GET IT! 🔥", color: '#39FF14' },
+}
+
 const MOTIVATIONAL_QUOTES = [
   "Every rep is making you faster",
   "Champions train when they don't feel like it",
@@ -47,8 +60,9 @@ export default function CountdownRing() {
 
   const targetDashoffset = CIRCUMFERENCE * (1 - progress)
 
-  // Pick a quote based on days remaining (deterministic per day)
-  const quote = MOTIVATIONAL_QUOTES[daysRemaining % MOTIVATIONAL_QUOTES.length]
+  // Check for milestone message first, then fall back to rotating quotes
+  const milestone = MILESTONES[daysRemaining]
+  const quote = milestone?.text || MOTIVATIONAL_QUOTES[daysRemaining % MOTIVATIONAL_QUOTES.length]
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -114,8 +128,11 @@ export default function CountdownRing() {
           {daysRemaining === 0 ? 'DAY!' : 'DAYS TO RACE DAY'}
         </text>
       </svg>
-      <p className="text-sm text-text-secondary italic text-center max-w-[240px] leading-snug">
-        &ldquo;{quote}&rdquo;
+      <p
+        className="text-sm italic text-center max-w-[240px] leading-snug font-semibold"
+        style={{ color: milestone?.color || '#8888A0' }}
+      >
+        {milestone ? quote : <>&ldquo;{quote}&rdquo;</>}
       </p>
     </div>
   )

@@ -73,6 +73,8 @@ export const EXERCISES = [
     why: 'Arms drive the legs — cheek to hip pocket, 90° elbows',
     setsReps: '2x30sec',
     youtubeSearch: 'https://www.youtube.com/results?search_query=arm+swing+drills+sprint+technique+tutorial',
+    timerType: 'countdown',
+    timerDuration: 30,
   },
   {
     id: 'wall_drives',
@@ -115,6 +117,8 @@ export const EXERCISES = [
     why: 'Core stability keeps your body straight when sprinting fast',
     setsReps: '3x30sec',
     youtubeSearch: 'https://www.youtube.com/results?search_query=plank+holds+core+strength+sprint+tutorial',
+    timerType: 'countdown',
+    timerDuration: 30,
   },
   {
     id: 'dead_bugs',
@@ -176,6 +180,8 @@ export const EXERCISES = [
     setsReps: '3x30sec',
     youtubeSearch: 'https://www.youtube.com/results?search_query=trampoline+jumps+reactive+strength+sprint+tutorial',
     notes: 'Focus on quick bounce',
+    timerType: 'countdown',
+    timerDuration: 30,
   },
   {
     id: 'jump_squats',
@@ -213,6 +219,7 @@ export const EXERCISES = [
     why: 'Race-specific speed, short enough for quality',
     setsReps: '4-6 reps',
     youtubeSearch: 'https://www.youtube.com/results?search_query=30m+sprint+technique+tutorial',
+    timerType: 'sprint',
   },
   {
     id: 'sprint_60m',
@@ -221,6 +228,7 @@ export const EXERCISES = [
     why: 'Extended speed endurance',
     setsReps: '2-3 reps',
     youtubeSearch: 'https://www.youtube.com/results?search_query=60m+sprint+technique+tutorial',
+    timerType: 'sprint',
   },
   {
     id: 'flying_20s',
@@ -229,6 +237,7 @@ export const EXERCISES = [
     why: 'Pure top speed without start variable',
     setsReps: '3-4 reps',
     youtubeSearch: 'https://www.youtube.com/results?search_query=flying+20s+sprint+drill+top+speed+tutorial',
+    timerType: 'sprint',
   },
   {
     id: 'stride_outs',
@@ -245,6 +254,7 @@ export const EXERCISES = [
     why: 'Practice race start from various positions',
     setsReps: '5-6 reps',
     youtubeSearch: 'https://www.youtube.com/results?search_query=reaction+starts+sprint+start+drill+tutorial',
+    timerType: 'sprint',
   },
   {
     id: 'shuttle_runs',

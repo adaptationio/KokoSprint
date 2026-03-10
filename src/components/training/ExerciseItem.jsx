@@ -10,7 +10,19 @@ function PlayIcon() {
   )
 }
 
-export default function ExerciseItem({ exercise, checked, onToggle, overrideSetsReps }) {
+// Timer icon SVG
+function TimerIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+      <circle cx="8" cy="9" r="6" stroke="currentColor" strokeWidth="1.2" />
+      <line x1="8" y1="9" x2="8" y2="5.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="8" y1="9" x2="10.5" y2="9" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="6.5" y1="2" x2="9.5" y2="2" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+    </svg>
+  )
+}
+
+export default function ExerciseItem({ exercise, checked, onToggle, overrideSetsReps, onTimer }) {
   if (!exercise) return null
 
   const setsReps = overrideSetsReps || exercise.setsReps
@@ -50,6 +62,19 @@ export default function ExerciseItem({ exercise, checked, onToggle, overrideSets
             >
               {setsReps}
             </span>
+
+            {/* Timer button — for exercises with built-in timer */}
+            {exercise.timerType && onTimer && (
+              <button
+                onClick={(e) => { e.stopPropagation(); onTimer(exercise) }}
+                className="flex items-center justify-center gap-1 text-neon hover:text-neon/80 transition-colors duration-150"
+                style={{ minWidth: 44, minHeight: 44 }}
+                aria-label={`Start timer for ${exercise.name}`}
+              >
+                <TimerIcon />
+                <span className="text-[10px] font-semibold uppercase tracking-wide">Timer</span>
+              </button>
+            )}
 
             {/* YouTube link — 44px min touch target */}
             {exercise.youtubeSearch && (
