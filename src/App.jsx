@@ -1,6 +1,7 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import { AppProvider } from './context/AppContext'
+import ErrorBoundary from './components/layout/ErrorBoundary'
 import TabBar from './components/layout/TabBar'
 import PageTransition from './components/layout/PageTransition'
 import Dashboard from './pages/Dashboard'
@@ -26,13 +27,15 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <AppProvider>
-      <HashRouter>
-        <div className="min-h-dvh bg-bg text-text-primary font-sans pb-20">
-          <AnimatedRoutes />
-          <TabBar />
-        </div>
-      </HashRouter>
-    </AppProvider>
+    <ErrorBoundary>
+      <AppProvider>
+        <HashRouter>
+          <div className="min-h-dvh bg-bg text-text-primary font-sans pb-20">
+            <AnimatedRoutes />
+            <TabBar />
+          </div>
+        </HashRouter>
+      </AppProvider>
+    </ErrorBoundary>
   )
 }

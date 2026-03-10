@@ -86,10 +86,14 @@ export default function SessionComplete({ sessionNumber, totalSessions, currentD
     return () => clearTimeout(timer)
   }, [])
 
-  function handleRate(value) {
+  async function handleRate(value) {
     setSelectedRating(value)
     setRated(true)
-    onRate(value)
+    try {
+      await onRate(value)
+    } catch {
+      // Rating saved locally even if network fails
+    }
   }
 
   return (

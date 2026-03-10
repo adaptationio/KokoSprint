@@ -40,11 +40,12 @@ export function AppProvider({ children }) {
       const err = sessions.error || exerciseLogs.error || progressLogs.error || achievements.error
       if (err) {
         dispatch({ type: 'SET_ERROR', payload: err.message })
+        // Only update tables that succeeded — don't overwrite good data with empty arrays
       }
-      dispatch({ type: 'SET_SESSIONS', payload: sessions.data || [] })
-      dispatch({ type: 'SET_EXERCISE_LOGS', payload: exerciseLogs.data || [] })
-      dispatch({ type: 'SET_PROGRESS_LOGS', payload: progressLogs.data || [] })
-      dispatch({ type: 'SET_ACHIEVEMENTS', payload: achievements.data || [] })
+      if (sessions.data) dispatch({ type: 'SET_SESSIONS', payload: sessions.data })
+      if (exerciseLogs.data) dispatch({ type: 'SET_EXERCISE_LOGS', payload: exerciseLogs.data })
+      if (progressLogs.data) dispatch({ type: 'SET_PROGRESS_LOGS', payload: progressLogs.data })
+      if (achievements.data) dispatch({ type: 'SET_ACHIEVEMENTS', payload: achievements.data })
     } catch (err) {
       dispatch({ type: 'SET_ERROR', payload: err.message || 'Failed to load data' })
     } finally {

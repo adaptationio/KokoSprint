@@ -12,7 +12,8 @@ export function useAchievements() {
 
   const unlock = useCallback(async (achievementId) => {
     if (isUnlocked(achievementId)) return
-    await supabase.from('achievements').insert({ achievement_id: achievementId })
+    const { error } = await supabase.from('achievements').insert({ achievement_id: achievementId })
+    if (error) throw new Error(error.message)
     await refreshData()
   }, [isUnlocked, refreshData])
 

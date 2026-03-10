@@ -25,14 +25,16 @@ export function useTraining() {
     )
 
     if (existing) {
-      await supabase
+      const { error } = await supabase
         .from('exercise_logs')
         .update({ completed: !existing.completed })
         .eq('id', existing.id)
+      if (error) throw new Error(error.message)
     } else {
-      await supabase
+      const { error } = await supabase
         .from('exercise_logs')
         .insert({ session_date: date, exercise_id: exerciseId, completed: true })
+      if (error) throw new Error(error.message)
     }
     await refreshData()
   }, [state.exerciseLogs, refreshData])
@@ -44,12 +46,13 @@ export function useTraining() {
 
     const existing = state.sessions.find(s => s.session_date === date)
     if (existing) {
-      await supabase
+      const { error } = await supabase
         .from('training_sessions')
         .update({ completed: true, session_rating: rating, notes })
         .eq('id', existing.id)
+      if (error) throw new Error(error.message)
     } else {
-      await supabase
+      const { error } = await supabase
         .from('training_sessions')
         .insert({
           session_date: date,
@@ -59,6 +62,7 @@ export function useTraining() {
           session_rating: rating,
           notes,
         })
+      if (error) throw new Error(error.message)
     }
     await refreshData()
   }, [state.sessions, refreshData])
