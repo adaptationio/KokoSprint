@@ -1,10 +1,11 @@
 import { useState, useMemo, useEffect, useRef } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { format } from 'date-fns'
+import { useAppContext } from '../context/AppContext'
 import { useTraining } from '../hooks/useTraining'
 import { useAchievements } from '../hooks/useAchievements'
 import { EXERCISES_BY_ID, COACHING_CUES } from '../data/exercises'
-import { TOTAL_SESSIONS, RACE_DAY_CHECKLIST } from '../data/trainingPlan'
+import { TOTAL_SESSIONS, RACE_DAY, RACE_DAY_CHECKLIST } from '../data/trainingPlan'
 import ExerciseItem from '../components/training/ExerciseItem'
 import SessionComplete from '../components/training/SessionComplete'
 
@@ -227,10 +228,16 @@ function ProgressBar({ done, total }) {
 export default function Training() {
   const { getTodaySession, getSessionExercises, toggleExercise, completeSession } = useTraining()
   const { evaluateAchievements } = useAchievements()
+  const { state } = useAppContext()
 
   const today = format(new Date(), 'yyyy-MM-dd')
   const session = getTodaySession()
   const exerciseLogs = getSessionExercises(today)
+
+  // Check if session is already completed in DB to prevent re-firing overlay on navigation
+  const isAlreadyCompleted = useMemo(() => {
+    return state.sessions.some(s => s.session_date === today && s.completed)
+  }, [state.sessions, today])
 
   const [noteOpen, setNoteOpen] = useState(false)
   const [noteText, setNoteText] = useState('')
@@ -256,17 +263,18 @@ export default function Training() {
     return session.exercises.filter((item) => checkedMap[item.exerciseId]).length
   }, [session, checkedMap])
 
-  // Trigger session complete overlay when all exercises checked
+  // Trigger session complete overlay when all exercises checked (only if not already completed)
   useEffect(() => {
     if (
       totalExercises > 0 &&
       checkedCount === totalExercises &&
       !completionHandled &&
+      !isAlreadyCompleted &&
       !showComplete
     ) {
       setShowComplete(true)
     }
-  }, [checkedCount, totalExercises, completionHandled, showComplete])
+  }, [checkedCount, totalExercises, completionHandled, isAlreadyCompleted, showComplete])
 
   async function handleToggle(exerciseId) {
     await toggleExercise(today, exerciseId)
@@ -284,6 +292,24 @@ export default function Training() {
 
   // ── Non-training day screens ─────────────────────────────────────────────
   if (!session) {
+    if (today > RACE_DAY) {
+      return (
+        <div className="flex flex-col items-center justify-center min-h-[60dvh] px-6 text-center gap-4">
+          <div
+            className="w-20 h-20 rounded-full flex items-center justify-center text-4xl"
+            style={{ background: 'rgba(57,255,20,0.08)' }}
+          >
+            🏅
+          </div>
+          <p className="text-3xl font-black text-neon uppercase tracking-widest">
+            Program Complete
+          </p>
+          <p className="text-text-secondary text-base max-w-xs leading-relaxed">
+            You did it! Check your Progress tab to see how far you&apos;ve come.
+          </p>
+        </div>
+      )
+    }
     return (
       <div className="p-6">
         <RestDayScreen session={null} />

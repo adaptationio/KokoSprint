@@ -1,11 +1,28 @@
 import { Link } from 'react-router-dom'
+import { format } from 'date-fns'
 import { useTraining } from '../../hooks/useTraining'
+import { RACE_DAY } from '../../data/trainingPlan'
 
 export default function TodayCard() {
   const { getTodaySession } = useTraining()
   const session = getTodaySession()
+  const today = format(new Date(), 'yyyy-MM-dd')
 
   if (!session) {
+    // After race day — show celebration
+    if (today > RACE_DAY) {
+      return (
+        <div className="bg-surface rounded-xl p-6 flex flex-col items-center gap-3 text-center">
+          <p className="text-4xl">🏅</p>
+          <p className="text-xl font-black text-neon uppercase tracking-widest">
+            Training Complete!
+          </p>
+          <p className="text-text-secondary text-sm leading-relaxed max-w-xs">
+            You crushed the program and gave it your all on race day. Be proud of everything you achieved!
+          </p>
+        </div>
+      )
+    }
     return (
       <div className="bg-surface rounded-xl p-6">
         <p className="text-text-secondary text-sm uppercase tracking-wider font-semibold">

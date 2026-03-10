@@ -89,7 +89,7 @@ function SettingsPanel({ onClose, refreshData }) {
 
       if (Array.isArray(data.training_sessions) && data.training_sessions.length > 0) {
         upserts.push(
-          supabase.from('training_sessions').upsert(data.training_sessions, { onConflict: 'date' })
+          supabase.from('training_sessions').upsert(data.training_sessions, { onConflict: 'session_date' })
         )
       }
       if (Array.isArray(data.exercise_logs) && data.exercise_logs.length > 0) {
