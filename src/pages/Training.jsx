@@ -4,7 +4,7 @@ import { format } from 'date-fns'
 import { useTraining } from '../hooks/useTraining'
 import { useAchievements } from '../hooks/useAchievements'
 import { EXERCISES_BY_ID, COACHING_CUES } from '../data/exercises'
-import { TRAINING_PLAN, TOTAL_SESSIONS } from '../data/trainingPlan'
+import { TOTAL_SESSIONS, RACE_DAY_CHECKLIST } from '../data/trainingPlan'
 import ExerciseItem from '../components/training/ExerciseItem'
 import SessionComplete from '../components/training/SessionComplete'
 
@@ -87,33 +87,101 @@ function TaperDayScreen({ session }) {
 
 // ── RACE DAY ─────────────────────────────────────────────────────────────────
 function RaceDayScreen() {
+  const [checked, setChecked] = useState(() =>
+    Object.fromEntries(RACE_DAY_CHECKLIST.map((item) => [item.id, false]))
+  )
+
+  function toggleItem(id) {
+    setChecked((prev) => ({ ...prev, [id]: !prev[id] }))
+  }
+
+  const doneCount = Object.values(checked).filter(Boolean).length
+  const allDone = doneCount === RACE_DAY_CHECKLIST.length
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-[60dvh] px-6 text-center gap-4">
-      <div
-        className="w-24 h-24 rounded-full flex items-center justify-center text-5xl"
-        style={{
-          background: 'rgba(57,255,20,0.12)',
-          boxShadow: '0 0 32px #39FF1433',
-        }}
-      >
-        🏁
-      </div>
-      <p
-        className="text-5xl font-black uppercase tracking-widest"
-        style={{
-          color: '#39FF14',
-          textShadow: '0 0 20px #39FF1466',
-        }}
-      >
-        Race Day
-      </p>
-      <p className="text-text-primary text-base max-w-xs leading-relaxed">
-        This is what you trained for. Warm up properly, trust your body, and go all out.
-      </p>
-      <div className="mt-2 rounded-xl px-5 py-3" style={{ background: 'rgba(0,212,255,0.1)' }}>
-        <p className="text-electric text-sm font-semibold italic">
-          "Stay on the balls of your feet. Drive your knees UP. Hands relaxed."
+    <div className="flex flex-col items-center px-4 pb-16 pt-6 gap-6 max-w-lg mx-auto">
+      {/* Hero */}
+      <div className="flex flex-col items-center text-center gap-3">
+        <div
+          className="w-24 h-24 rounded-full flex items-center justify-center text-5xl"
+          style={{
+            background: 'rgba(57,255,20,0.12)',
+            boxShadow: '0 0 40px #39FF1455',
+          }}
+        >
+          🏁
+        </div>
+        <p
+          className="text-5xl font-black uppercase tracking-widest leading-none"
+          style={{
+            color: '#39FF14',
+            textShadow: '0 0 24px #39FF1480',
+          }}
+        >
+          Race Day
         </p>
+        <p className="text-text-secondary text-sm max-w-xs leading-relaxed">
+          This is what you trained for. Warm up properly, trust your body, and go all out.
+        </p>
+      </div>
+
+      {/* Checklist */}
+      <div className="w-full rounded-xl overflow-hidden" style={{ background: 'rgba(26,26,46,0.85)', border: '1px solid rgba(57,255,20,0.15)' }}>
+        <div className="px-4 pt-4 pb-2 flex items-center justify-between">
+          <p className="text-xs font-bold text-neon uppercase tracking-widest">Race Day Checklist</p>
+          <p className="text-xs font-semibold text-text-secondary">
+            <span style={{ color: allDone ? '#39FF14' : '#F0F0F0' }}>{doneCount}</span>/{RACE_DAY_CHECKLIST.length}
+          </p>
+        </div>
+        <div className="divide-y" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+          {RACE_DAY_CHECKLIST.map((item) => (
+            <button
+              key={item.id}
+              onClick={() => toggleItem(item.id)}
+              className="w-full flex items-start gap-3 px-4 py-3 text-left transition-colors duration-100 active:opacity-70"
+              style={{ background: checked[item.id] ? 'rgba(57,255,20,0.06)' : 'transparent' }}
+            >
+              {/* Checkbox */}
+              <div
+                className="mt-0.5 w-5 h-5 rounded flex-shrink-0 flex items-center justify-center border-2 transition-all duration-150"
+                style={{
+                  borderColor: checked[item.id] ? '#39FF14' : 'rgba(136,136,160,0.4)',
+                  background: checked[item.id] ? '#39FF14' : 'transparent',
+                }}
+              >
+                {checked[item.id] && (
+                  <svg width="11" height="9" viewBox="0 0 11 9" fill="none">
+                    <path d="M1 4.5L4 7.5L10 1" stroke="#0A0A0F" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </div>
+              <p
+                className="text-sm leading-snug transition-colors duration-150"
+                style={{ color: checked[item.id] ? 'rgba(240,240,240,0.5)' : '#F0F0F0', textDecoration: checked[item.id] ? 'line-through' : 'none' }}
+              >
+                {item.label}
+              </p>
+            </button>
+          ))}
+        </div>
+        {allDone && (
+          <div className="px-4 py-3 text-center" style={{ background: 'rgba(57,255,20,0.08)' }}>
+            <p className="text-neon text-sm font-bold uppercase tracking-wider">You&apos;re ready. Go get it! 🔥</p>
+          </div>
+        )}
+      </div>
+
+      {/* Coaching cues */}
+      <div className="w-full rounded-xl overflow-hidden" style={{ background: 'rgba(0,212,255,0.07)', border: '1px solid rgba(0,212,255,0.18)' }}>
+        <p className="text-xs font-bold text-electric uppercase tracking-widest px-4 pt-4 pb-2">Coaching Cues</p>
+        <div className="px-4 pb-4 flex flex-col gap-2">
+          {COACHING_CUES.map((cue, i) => (
+            <div key={i} className="flex items-start gap-2">
+              <span className="text-electric text-xs mt-0.5 flex-shrink-0">→</span>
+              <p className="text-sm text-text-primary leading-snug italic">&ldquo;{cue}&rdquo;</p>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -240,11 +308,7 @@ export default function Training() {
   }
 
   if (session.type === 'race') {
-    return (
-      <div className="p-6">
-        <RaceDayScreen />
-      </div>
-    )
+    return <RaceDayScreen />
   }
 
   // ── Training session ────────────────────────────────────────────────────
@@ -253,9 +317,6 @@ export default function Training() {
 
   // Count this session's number among all completed sessions
   const sessionNumber = session.dayNumber ?? '?'
-
-  // Check if already completed today
-  const alreadyCompleted = false // We let the overlay handle this state
 
   return (
     <div className="flex flex-col pb-32">
