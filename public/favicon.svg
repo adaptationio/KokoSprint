@@ -1,4 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
   <rect width="32" height="32" rx="6" fill="#0A0A0F"/>
-  <text x="16" y="22" font-size="18" text-anchor="middle" fill="#39FF14" font-family="sans-serif" font-weight="bold">K</text>
+  <g fill="#39FF14">
+    <!-- Kokopelli silhouette - dancing flute player -->
+    <!-- Head -->
+    <circle cx="16" cy="6.5" r="2.8"/>
+    <!-- Headdress spikes -->
+    <rect x="13" y="1" width="1.2" height="4" rx="0.6" transform="rotate(-15 13.6 3)"/>
+    <rect x="15.4" y="0.5" width="1.2" height="4.5" rx="0.6"/>
+    <rect x="17.8" y="1" width="1.2" height="4" rx="0.6" transform="rotate(15 18.4 3)"/>
+    <!-- Body -->
+    <path d="M14.5 9 Q15 15 14 20 L18 20 Q17 15 17.5 9 Z"/>
+    <!-- Hump/backpack -->
+    <ellipse cx="19" cy="13" rx="2.5" ry="3.5" transform="rotate(-10 19 13)" opacity="0.85"/>
+    <!-- Flute -->
+    <rect x="5" y="9.5" width="10" height="1.8" rx="0.9" transform="rotate(-8 10 10.4)"/>
+    <!-- Left arm to flute -->
+    <path d="M14.5 11 Q12 10 10 10.5" stroke="#39FF14" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Right arm back -->
+    <path d="M17.5 12 Q20 11 21 12.5" stroke="#39FF14" stroke-width="1.8" fill="none" stroke-linecap="round"/>
+    <!-- Left leg kicked up -->
+    <path d="M14 20 Q11 23 9 22 Q7.5 21.5 6.5 23" stroke="#39FF14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <!-- Right leg down -->
+    <path d="M18 20 Q19 24 20 27 Q20.5 28.5 22.5 29" stroke="#39FF14" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+  </g>
 </svg>
