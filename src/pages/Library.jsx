@@ -48,7 +48,7 @@ export default function Library() {
           <button
             key={value}
             onClick={() => setActiveCategory(value)}
-            className={`shrink-0 rounded-full px-4 py-2 text-xs uppercase tracking-wider font-semibold transition-colors
+            className={`shrink-0 rounded-full px-4 py-3 text-xs uppercase tracking-wider font-semibold transition-colors
               ${activeCategory === value
                 ? 'bg-neon text-bg font-bold'
                 : 'bg-surface text-text-secondary'

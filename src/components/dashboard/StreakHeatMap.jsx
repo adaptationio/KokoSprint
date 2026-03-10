@@ -91,7 +91,7 @@ export default function StreakHeatMap() {
             const isActiveDay = sessionType && sessionType !== 'rest'
 
             let cellClass = 'aspect-square rounded-sm flex items-center justify-center relative'
-            let innerClass = 'text-[8px] font-semibold'
+            let innerClass = 'text-[11px] font-semibold'
 
             if (isCompleted) {
               // Completed: neon green with glow
@@ -124,15 +124,15 @@ export default function StreakHeatMap() {
       <div className="flex items-center gap-4 mt-1">
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-neon shadow-[0_0_4px_#39FF14]" />
-          <span className="text-[10px] text-text-secondary">Done</span>
+          <span className="text-xs text-text-secondary">Done</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm border-2 border-electric" />
-          <span className="text-[10px] text-text-secondary">Today</span>
+          <span className="text-xs text-text-secondary">Today</span>
         </div>
         <div className="flex items-center gap-1.5">
           <div className="w-3 h-3 rounded-sm bg-surface/50" />
-          <span className="text-[10px] text-text-secondary">Upcoming</span>
+          <span className="text-xs text-text-secondary">Upcoming</span>
         </div>
       </div>
     </div>

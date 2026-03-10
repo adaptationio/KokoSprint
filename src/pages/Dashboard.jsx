@@ -229,19 +229,21 @@ export default function Dashboard() {
           KokoSprint
         </h1>
         <div className="flex items-center gap-3">
-          {/* Trophy button — achievements drawer */}
+          {/* Trophy button — achievements drawer (44px min touch target) */}
           <button
             aria-label="Achievements"
             onClick={() => setShowAchievements(true)}
-            className="text-text-secondary hover:text-neon transition-colors text-xl leading-none p-1"
+            className="text-text-secondary hover:text-neon transition-colors text-xl leading-none flex items-center justify-center"
+            style={{ minWidth: 44, minHeight: 44 }}
           >
             🏆
           </button>
-          {/* Gear button — export/import settings */}
+          {/* Gear button — export/import settings (44px min touch target) */}
           <button
             aria-label="Settings"
             onClick={() => setShowSettings((v) => !v)}
-            className="text-text-secondary hover:text-electric transition-colors text-xl leading-none p-1"
+            className="text-text-secondary hover:text-electric transition-colors text-xl leading-none flex items-center justify-center"
+            style={{ minWidth: 44, minHeight: 44 }}
           >
             ⚙️
           </button>

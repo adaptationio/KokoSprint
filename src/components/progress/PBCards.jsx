@@ -7,6 +7,7 @@ export default function PBCards() {
   const pbs = getPersonalBests()
 
   return (
+    <div className="relative">
     <div className="flex gap-3 overflow-x-auto snap-x pb-2 scrollbar-hide">
       {METRIC_ORDER.map((metric) => {
         const info = METRIC_LABELS[metric]
@@ -47,6 +48,12 @@ export default function PBCards() {
           </div>
         )
       })}
+    </div>
+    {/* Scroll affordance fade on right edge */}
+    <div
+      className="absolute right-0 top-0 bottom-2 w-8 pointer-events-none"
+      style={{ background: 'linear-gradient(90deg, transparent, var(--color-bg))' }}
+    />
     </div>
   )
 }

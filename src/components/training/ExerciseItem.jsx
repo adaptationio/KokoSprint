@@ -51,18 +51,19 @@ export default function ExerciseItem({ exercise, checked, onToggle, overrideSets
               {setsReps}
             </span>
 
-            {/* YouTube link */}
+            {/* YouTube link — 44px min touch target */}
             {exercise.youtubeSearch && (
               <a
                 href={exercise.youtubeSearch}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs text-text-secondary hover:text-electric transition-colors duration-150"
+                className="flex items-center justify-center gap-1 text-text-secondary hover:text-electric transition-colors duration-150"
+                style={{ minWidth: 44, minHeight: 44 }}
                 aria-label={`Watch ${exercise.name} tutorial on YouTube`}
                 onClick={(e) => e.stopPropagation()}
               >
                 <PlayIcon />
-                <span className="sr-only">How-to</span>
+                <span className="text-[10px] font-semibold uppercase tracking-wide">Video</span>
               </a>
             )}
           </div>
