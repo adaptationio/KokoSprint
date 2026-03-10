@@ -68,7 +68,7 @@ export default function SessionComplete({ sessionNumber, totalSessions, currentD
     })
 
     // Second burst for extra impact
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       confetti({
         particleCount: 60,
         spread: 55,
@@ -82,6 +82,8 @@ export default function SessionComplete({ sessionNumber, totalSessions, currentD
         colors: ['#00D4FF', '#39FF14'],
       })
     }, 250)
+
+    return () => clearTimeout(timer)
   }, [])
 
   function handleRate(value) {

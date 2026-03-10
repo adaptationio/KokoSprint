@@ -54,19 +54,19 @@ export default function CountdownRing() {
           style={{ transform: 'rotate(-90deg)', transformOrigin: `${CENTER}px ${CENTER}px` }}
         />
 
-        {/* Center text: days remaining */}
+        {/* Center text */}
         <text
           x={CENTER}
           y={CENTER - 10}
           textAnchor="middle"
           dominantBaseline="middle"
-          fill="#F0F0F0"
-          fontSize="44"
+          fill={daysRemaining === 0 ? '#39FF14' : '#F0F0F0'}
+          fontSize={daysRemaining === 0 ? '28' : '44'}
           fontWeight="700"
           fontFamily="Inter, system-ui, sans-serif"
           letterSpacing="-2"
         >
-          {daysRemaining}
+          {daysRemaining === 0 ? 'RACE' : daysRemaining}
         </text>
 
         {/* Sub-label */}
@@ -75,13 +75,13 @@ export default function CountdownRing() {
           y={CENTER + 26}
           textAnchor="middle"
           dominantBaseline="middle"
-          fill="#8888A0"
-          fontSize="9"
+          fill={daysRemaining === 0 ? '#39FF14' : '#8888A0'}
+          fontSize="11"
           fontWeight="600"
           fontFamily="Inter, system-ui, sans-serif"
           letterSpacing="1.5"
         >
-          DAYS TO RACE DAY
+          {daysRemaining === 0 ? 'DAY!' : 'DAYS TO RACE DAY'}
         </text>
       </svg>
     </div>

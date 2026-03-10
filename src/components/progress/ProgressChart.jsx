@@ -39,7 +39,7 @@ function CustomTooltip({ active, payload, label, unit }) {
       }}
     >
       <p className="text-xs text-text-secondary mb-1">
-        {label ? format(parseISO(label), 'MMM d, yyyy') : ''}
+        {label ? (() => { try { return format(parseISO(label), 'MMM d, yyyy') } catch { return label } })() : ''}
       </p>
       <p className="font-bold text-text-primary">
         {entry.value}
@@ -86,6 +86,7 @@ function buildComparisonText(data, metricInfo) {
 }
 
 export default function ProgressChart({ data, metricInfo }) {
+  if (!data || data.length === 0) return null
   const comparisonText = buildComparisonText(data, metricInfo)
 
   return (

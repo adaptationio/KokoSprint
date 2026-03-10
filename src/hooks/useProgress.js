@@ -14,11 +14,12 @@ export function useProgress() {
 
   // Log a new progress entry
   const logProgress = useCallback(async (date, metricType, value) => {
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from('progress_logs')
       .insert({ log_date: date, metric_type: metricType, value: parseFloat(value) })
       .select()
       .single()
+    if (error) throw new Error(error.message)
     await refreshData()
     return data // includes is_pb from trigger
   }, [refreshData])
@@ -49,7 +50,8 @@ export function useProgress() {
     const pbEntries = state.progressLogs.filter(log => log.is_pb)
     if (pbEntries.length === 0) return null
     const sorted = [...pbEntries].sort((a, b) => b.created_at.localeCompare(a.created_at))
-    return { ...sorted[0], ...METRIC_LABELS[sorted[0].metric_type] }
+    const metricInfo = METRIC_LABELS[sorted[0].metric_type] || { name: sorted[0].metric_type, unit: '' }
+    return { ...sorted[0], ...metricInfo }
   }, [state.progressLogs])
 
   return { logProgress, getProgressByMetric, getPersonalBests, getLatestPB, METRIC_LABELS }
