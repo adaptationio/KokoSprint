@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
+import { AppProvider } from './context/AppContext'
 import TabBar from './components/layout/TabBar'
 import PageTransition from './components/layout/PageTransition'
 import Dashboard from './pages/Dashboard'
@@ -25,11 +26,13 @@ function AnimatedRoutes() {
 
 export default function App() {
   return (
-    <HashRouter>
-      <div className="min-h-dvh bg-bg text-text-primary font-sans pb-20">
-        <AnimatedRoutes />
-        <TabBar />
-      </div>
-    </HashRouter>
+    <AppProvider>
+      <HashRouter>
+        <div className="min-h-dvh bg-bg text-text-primary font-sans pb-20">
+          <AnimatedRoutes />
+          <TabBar />
+        </div>
+      </HashRouter>
+    </AppProvider>
   )
 }
