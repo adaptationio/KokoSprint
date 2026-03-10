@@ -42,8 +42,8 @@ export default function Library() {
           focus:border-neon focus:outline-none transition-colors"
       />
 
-      {/* Category filter pills — horizontally scrollable */}
-      <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4 scrollbar-none">
+      {/* Category filter pills — wrap on mobile */}
+      <div className="flex gap-2 flex-wrap">
         {FILTER_CATEGORIES.map(({ label, value }) => (
           <button
             key={value}
