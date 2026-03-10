@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import confetti from 'canvas-confetti'
+import { playPBSound } from '../../lib/sounds'
 import { useProgress } from '../../hooks/useProgress'
 import { useAchievements } from '../../hooks/useAchievements'
 
@@ -36,6 +37,7 @@ export default function LogEntryForm() {
     try {
       const result = await logProgress(date, metric, value)
       if (result?.is_pb) {
+        playPBSound()
         confetti({
           particleCount: 120,
           spread: 80,

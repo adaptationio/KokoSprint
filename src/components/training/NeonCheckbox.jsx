@@ -1,10 +1,17 @@
 import { motion, AnimatePresence } from 'framer-motion'
+import { playCheckSound, playUncheckSound } from '../../lib/sounds'
 
 export default function NeonCheckbox({ checked, onChange }) {
+  function handleClick() {
+    if (!checked) playCheckSound()
+    else playUncheckSound()
+    onChange()
+  }
+
   return (
     <button
       type="button"
-      onClick={onChange}
+      onClick={handleClick}
       className="flex-shrink-0 flex items-center justify-center"
       style={{ minWidth: 44, minHeight: 44 }}
       aria-checked={checked}

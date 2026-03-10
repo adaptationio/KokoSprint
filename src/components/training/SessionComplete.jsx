@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import confetti from 'canvas-confetti'
+import { playVictorySound } from '../../lib/sounds'
 import { TRAINING_PLAN } from '../../data/trainingPlan'
 
 const CELEBRATION_MESSAGES = [
@@ -73,6 +74,9 @@ export default function SessionComplete({ sessionNumber, totalSessions, currentD
   )
 
   useEffect(() => {
+    // Play victory fanfare
+    playVictorySound()
+
     // Fire confetti burst on mount
     confetti({
       particleCount: 120,
